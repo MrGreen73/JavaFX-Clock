@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import static javafx.scene.shape.ArcBuilder.*;
 
-public class Main extends Application {
+public class Clock extends Application {
 
     //Создаем объект времени
     private static final Time time = new Time();
@@ -25,7 +25,7 @@ public class Main extends Application {
     private Scene scene;
     private Group group;
 
-    //Три уровня покрытия часов
+    //Три уровня покрытия часов(задняя - выполняет функцию шторки, то есть закрывает и открывает)
     public static Arc backCircle = new Arc(); // Задняя с цветом
     public static Arc frontCircle = new Arc(); // Внешняя с картинкой
     public static Arc strokeCircle = new Arc(); // Обводка
@@ -51,12 +51,16 @@ public class Main extends Application {
 
     //Параметры переднего фона часов
     private int startFrontCircle = 90;
-    private int lengthFrontCircle = 260;
+    private int lengthFrontCircle = 360;
     private String frontImage = "pikachu.png"; // Картинка с пикачу
 
 
     //Толщина отметок на часах
     private int lineStroke = 3;
+
+    //Цвета стрелок
+    private Color colorMinute = Color.BLUE;
+    private Color colorHours = Color.RED;
 
     public static void main(String[] args) {
 
@@ -109,7 +113,7 @@ public class Main extends Application {
                 .build();
 
         //Заносим все элементы в группу
-        group.getChildren().addAll(strokeCircle, backCircle, frontCircle, Lines(), seconds(), minutes(), hours());
+        group.getChildren().addAll(strokeCircle, frontCircle, backCircle, Lines(), seconds(), minutes(), hours());
 
 
         //Устанавливаем Scene
@@ -160,7 +164,7 @@ public class Main extends Application {
         Rotate rotate = rotation();
         rotate.angleProperty().bind(time.hour.multiply(360 / 12));
 
-        return paintHours(clockCenter * 0.6, Color.RED, rotate);
+        return paintHours(clockCenter * 0.6, colorHours, rotate);
 
     }
 
@@ -170,7 +174,7 @@ public class Main extends Application {
         Rotate rotate = rotation();
         rotate.angleProperty().bind(time.minute.multiply(360 / 60));
 
-        return paintMinutes(clockCenter * 0.5, Color.BLUE, rotate);
+        return paintMinutes(clockCenter * 0.5, colorMinute, rotate);
 
     }
 

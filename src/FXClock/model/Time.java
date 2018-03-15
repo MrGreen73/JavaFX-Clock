@@ -1,5 +1,6 @@
 package FXClock.model;
 
+import FXClock.view.Clock;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TimelineBuilder;
@@ -7,7 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 
-import java.time.Clock;
 import java.util.Calendar;
 
 public class Time {
@@ -22,11 +22,14 @@ public class Time {
 
     }
 
+    // Для старта
+    private boolean proofStart = false;
+
     //Проверка для смены рисунка
-    public boolean stepMunute = false;
+    private boolean stepCase = true;
 
     // Шаг для сдвига
-    public int step = 6;
+    private int step = 6;
 
     private void startTime() {
 
@@ -48,23 +51,42 @@ public class Time {
             minute.set(calendar.get(Calendar.MINUTE));
             second.set(calendar.get(Calendar.SECOND));
 
-            /*if (calendar.get(Calendar.SECOND) == 1){
+            if (proofStart) {
 
-                pr = true;
+                if (stepCase){
+
+                    Clock.backCircle.setLength(Clock.backCircle.getLength() - step);
+
+                } else {
+
+                    Clock.backCircle.setLength(Clock.backCircle.getLength() + step);
+                    Clock.backCircle.setStartAngle(Clock.backCircle.getStartAngle() - step);
+
+                }
+
+                if (calendar.get(Calendar.SECOND) == 0){
+
+                    if (stepCase) {
+
+                        stepCase = false;
+
+                    } else {
+
+                        stepCase = true;
+                        Clock.backCircle.setStartAngle(90);
+
+                    }
+
+
+                }
+
+
+            } else if (calendar.get(Calendar.SECOND) == 0){
+
+                proofStart = true;
 
             }
 
-            if (pr){
-
-            //    Clock.arc.setLength(Clock.arc.getLength() + k);
-
-
-                if (pr && calendar.get(Calendar.SECOND) == 59) {
-
-                    k = 6;
-
-                }
-            }*/
         };
     }
 
