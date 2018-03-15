@@ -1,4 +1,4 @@
-package sample;
+package FXClock;
 
 public class Controller {
 }
