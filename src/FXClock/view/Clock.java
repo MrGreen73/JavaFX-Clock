@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.*;
 
-
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.RotateBuilder;
 import javafx.stage.Stage;
@@ -27,8 +26,8 @@ public class Clock extends Application {
 
     //Три уровня покрытия часов(задняя - выполняет функцию шторки, то есть закрывает и открывает)
     public static Arc backCircle = new Arc(); // Задняя с цветом
-    public static Arc frontCircle = new Arc(); // Внешняя с картинкой
-    public static Arc strokeCircle = new Arc(); // Обводка
+    private static Arc frontCircle = new Arc(); // Внешняя с картинкой
+    private static Arc strokeCircle = new Arc(); // Обводка
 
     //Размеры окна
     private int widthWindow = 600;
@@ -121,8 +120,6 @@ public class Clock extends Application {
         stage.show();
 
     }
-
-
 
     //Делаем группу из 12 отметок
     private Node Lines() {

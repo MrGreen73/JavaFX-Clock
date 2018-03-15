@@ -12,6 +12,7 @@ import java.util.Calendar;
 
 public class Time {
 
+    //Свойства параметров часов
     public SimpleIntegerProperty hour = new SimpleIntegerProperty(0);
     public SimpleIntegerProperty minute = new SimpleIntegerProperty(0);
     public SimpleIntegerProperty second = new SimpleIntegerProperty(0);
@@ -42,6 +43,7 @@ public class Time {
                 .play();
     }
 
+    //Обрабатываем обновление времени
     private EventHandler updateTime() {
         return event -> {
 
@@ -51,19 +53,22 @@ public class Time {
             minute.set(calendar.get(Calendar.MINUTE));
             second.set(calendar.get(Calendar.SECOND));
 
+            //Если секундная стрелка впервые достигла старта, то proofStart = true
             if (proofStart) {
 
+                //Если картинка должна открываться
                 if (stepCase){
 
                     Clock.backCircle.setLength(Clock.backCircle.getLength() - step);
 
-                } else {
+                } else { // Закрываться
 
                     Clock.backCircle.setLength(Clock.backCircle.getLength() + step);
                     Clock.backCircle.setStartAngle(Clock.backCircle.getStartAngle() - step);
 
                 }
 
+                // В случае изменения движения шторки
                 if (calendar.get(Calendar.SECOND) == 0){
 
                     if (stepCase) {
@@ -77,9 +82,7 @@ public class Time {
 
                     }
 
-
                 }
-
 
             } else if (calendar.get(Calendar.SECOND) == 0){
 
@@ -88,6 +91,7 @@ public class Time {
             }
 
         };
+
     }
 
 }
