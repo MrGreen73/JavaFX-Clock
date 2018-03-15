@@ -21,20 +21,40 @@ public class Main extends Application {
 
 
     public static Arc backCircle = new Arc();
+    public static Arc frontCircle = new Arc();
+    public static Arc strokeCircle = new Arc();
 
-    private Color clockColor = Color.GREEN;
-    private String clockImage = "pikachu.jpg";
 
 
     private Scene scene;
     private Group group;
+
+    //Размеры окна
     private int widthWindow = 600;
     private int heightWindow = 600;
+
+    //Расположение часов
     private int xClock = widthWindow / 2;
     private int yClock = heightWindow / 2;
     private int radiusClock = widthWindow / 3;
+
+    //Параметры для stroke
+    private int startStrokeCircle = 90;
+    private int lengthStrokeCircle = 360;
+    private Color strokeColor = Color.DARKSEAGREEN;
+
+    //Параметры заднего фона часов
     private int startBackCircle = 90;
     private int lengthBackCircle = 360;
+    private Color backColor = Color.GREEN;
+
+
+    //Параметры переднего фона часов
+    private int startFrontCircle = 90;
+    private int lengthFrontCircle = 260;
+    private String frontImage = "pikachu.png";
+
+
 
 
 
@@ -45,6 +65,18 @@ public class Main extends Application {
         group = new Group();
         scene = new Scene(group, widthWindow, heightWindow, Color.WHEAT);
 
+        strokeCircle = create()
+                .type(ArcType.ROUND)
+                .centerX(xClock)
+                .centerY(xClock)
+                .radiusX(radiusClock)
+                .radiusY(radiusClock)
+                .startAngle(startStrokeCircle)
+                .length(lengthStrokeCircle)
+                .strokeWidth(24)
+                .stroke(strokeColor)
+                .build();
+
         backCircle = create()
                 .type(ArcType.ROUND)
                 .centerX(xClock)
@@ -53,10 +85,21 @@ public class Main extends Application {
                 .radiusY(radiusClock)
                 .startAngle(startBackCircle)
                 .length(lengthBackCircle)
-                .fill(clockColor)
+                .fill(backColor)
                 .build();
 
-        group.getChildren().add(backCircle);
+        frontCircle = create()
+                .type(ArcType.ROUND)
+                .centerX(xClock)
+                .centerY(xClock)
+                .radiusX(radiusClock)
+                .radiusY(radiusClock)
+                .startAngle(startFrontCircle)
+                .length(lengthFrontCircle)
+                .fill(new ImagePattern(new Image(frontImage)))
+                .build();
+
+        group.getChildren().addAll(strokeCircle, backCircle, frontCircle);
 
 
         stage.setScene(scene);
